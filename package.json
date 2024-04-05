@@ -1,7 +1,7 @@
 {
   "name": "pkglist-cli",
   "packageManager": "yarn@4.1.1+sha256.f3cc0eda8e5560e529c7147565b30faa43b4e472d90e8634d7134a37c7f59781",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "module",
   "bin": {
     "pkglist": "./build/esm/main.js"
@@ -24,5 +24,15 @@
   },
   "files": [
     "build/esm/main.js"
-  ]
+  ],
+  "keywords": [
+    "pkglist",
+    "package-management",
+    "cli"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamescallumyoung/pkglist-cli-ts.git"
+  }
 }

@@ -100,7 +100,7 @@ Options:
 
 The [pkglist specification][1] and this program were both created by [@jamescallumyoung](https://github.com/jamescallumyoung).
 
-Contributions to this repository are welcome.
+Contributions to this project are welcome.
 
 © 2024 by James Young and licensed under [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0.txt). 
 
