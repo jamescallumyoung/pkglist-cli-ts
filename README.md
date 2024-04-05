@@ -1,4 +1,4 @@
-# pkglist-cli-ts
+# pkglist-cli
 
 This package is a CLI for working with the [pkglist][1] format.
 
