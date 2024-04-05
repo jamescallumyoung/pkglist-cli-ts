@@ -2,11 +2,14 @@
 
 This package is a CLI for working with the [pkglist][1] format.
 
-The CLI provides the following command:
+The CLI provides the following commands:
 
 - `parse` parses a pkglist file and returns the packages installable by the selected package manager,
+- `get-script` returns an install script for the selected package manager.
 
 ## Usage
+
+#### parse
 
 The `parse` command is used to get all package entries, with the selected prefix, from a pkglist:
 
@@ -16,6 +19,25 @@ pkglist parse -p apt ./main.pkglist
 
 # from STDIN
 cat ./main.pkglist | pkglist parse -p apt
+```
+
+#### get-script
+
+The `get-script` command is used to get a script that may be used to invoke the selected package manager:
+
+```shell
+pkglist get-script -p apt
+```
+
+The script returned by `get-script` is non-prescriptive; you're welcome to alter it however you want, or to provide your own.
+
+#### combining commands
+
+The `parse` and `get-script` commands can be piped together as follows:
+
+```shell
+export PREFIX="apt"
+pkglist parse -SUp $PREFIX ./main.pkglist | xargs $(pkglist get-script -p $PREFIX)
 ```
 
 #### supported prefixes
@@ -46,6 +68,19 @@ Options:
   -p, --prefix          Which prefix should be selected?.    [string] [required]
   -S, --sort            Sort output.                  [boolean] [default: false]
   -U, --uniq, --unique  Make output unique.           [boolean] [default: false]
+```
+
+### `pkglist get-script`
+
+```
+pkglist get-script
+
+Get a script to invoke the selected package manager's install command.
+
+Options:
+      --version         Show version number                            [boolean]
+      --help     Show help                                             [boolean]
+  -p, --prefix   Which prefix should be selected?            [string] [required]
 ```
 
 ## Author & Licence

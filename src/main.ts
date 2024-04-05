@@ -53,7 +53,7 @@ yargs(hideBin(processArgv))
                 exit(exitCodes.badPrefix);
             }
 
-            const inputFile = (args.file === '-') ? stdin.fd : args.file;
+            const inputFile = (file === '-') ? stdin.fd : file;
 
             const fileContent = readFileSync(inputFile, 'utf-8');
 
@@ -76,6 +76,40 @@ yargs(hideBin(processArgv))
             }
 
             stdout.write(out.concat("\n"));
+        },
+    )
+    .command(
+        'get-script',
+        'Get a script to invoke the selected package manager\'s install command.',
+        (yargs) => yargs
+            .option('prefix', {
+                alias: 'p',
+                description: 'Which prefix should be selected?',
+                type: 'string',
+            })
+            .demandOption(['prefix']),
+        (args) => {
+            const { prefix } = args;
+
+            if (!supportedPrefixes.includes(prefix)) {
+                stderr.write(`Bad prefix! Must be one of: "${supportedPrefixes.join(', ')}".`.concat("\n"));
+                exit(exitCodes.badPrefix);
+            }
+
+            switch (prefix) {
+                case "apt":
+                    stdout.write("apt install -y".concat("\n"));
+                    break;
+                case "flatpak":
+                    stdout.write("flatpak install --noninteractive".concat("\n"));
+                    break;
+                case "snap":
+                    stdout.write("snap install".concat("\n"));
+                    break;
+                case "snap-classic":
+                    stdout.write("snap install --classic".concat("\n"));
+                    break;
+            }
         },
     )
     .strictCommands()

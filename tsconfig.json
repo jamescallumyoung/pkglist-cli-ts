@@ -3,13 +3,13 @@
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */
-    "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
+    "incremental": true,                                 /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
 
     /* Language and Environment */
     "target": "ES2022",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
 
     /* Modules */
-    "module": "Node16",                                /* Specify what module code is generated. */
+    "module": "Node16",                                  /* Specify what module code is generated. */
 
     /* Emit */
     "declaration": true,                                 /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
