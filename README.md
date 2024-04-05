@@ -51,6 +51,21 @@ Supported prefixes are:
 
 ## Manpage
 
+### `pkglist`
+
+```
+pkglist <command>
+
+Commands:
+  pkglist parse [file]  Parse a pkglist file for the selected package manager.
+  pkglist get-script    Get a script to invoke the selected package manager's
+                        install command.
+
+Options:
+  --help     Show help                                                 [boolean]
+  --version  Show version number                                       [boolean]
+```
+
 ### `pkglist parse`
 
 ```
