@@ -1,0 +1,19 @@
+{
+  "name": "pkglist-cli-ts",
+  "packageManager": "yarn@4.1.1",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "yarn run tsc",
+    "clean": "yarn dlx rimraf ./build",
+    "start": "yarn node ./build/esm/main.js"
+  },
+  "dependencies": {
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.4",
+    "typescript": "^5.4.3"
+  }
+}
