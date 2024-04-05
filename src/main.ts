@@ -44,7 +44,8 @@ yargs(hideBin(processArgv))
                 type: 'boolean',
                 default: false,
             })
-            .demandOption(['prefix']),
+            .demandOption(['prefix'])
+            .version(false),
         (args) => {
             const { file, prefix, sort, uniq } = args;
 
@@ -87,7 +88,8 @@ yargs(hideBin(processArgv))
                 description: 'Which prefix should be selected?',
                 type: 'string',
             })
-            .demandOption(['prefix']),
+            .demandOption(['prefix'])
+            .version(false),
         (args) => {
             const { prefix } = args;
 
@@ -115,4 +117,5 @@ yargs(hideBin(processArgv))
     .strictCommands()
     .demandCommand()
     .help()
+    .version(false)
     .parse();

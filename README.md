@@ -63,7 +63,6 @@ Positionals:
                                                          [string] [default: "-"]
 
 Options:
-      --version         Show version number                            [boolean]
       --help            Show help                                      [boolean]
   -p, --prefix          Which prefix should be selected?.    [string] [required]
   -S, --sort            Sort output.                  [boolean] [default: false]
@@ -78,7 +77,6 @@ pkglist get-script
 Get a script to invoke the selected package manager's install command.
 
 Options:
-      --version         Show version number                            [boolean]
       --help     Show help                                             [boolean]
   -p, --prefix   Which prefix should be selected?            [string] [required]
 ```
