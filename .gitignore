@@ -17,3 +17,6 @@
 
 # Build output
 build/*
+
+.yarnrc.yml
+*.pkglist
