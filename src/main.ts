@@ -8,6 +8,7 @@ import { hideBin } from 'yargs/helpers';
 
 const supportedPrefixes = [
     "apt",
+    "apt-repo",
     "flatpak",
     "snap",
     "snap-classic",
@@ -101,6 +102,9 @@ yargs(hideBin(processArgv))
             switch (prefix) {
                 case "apt":
                     stdout.write("apt install -y".concat("\n"));
+                    break;
+                case "apt-repo":
+                    stdout.write("add-apt-repository -y -S".concat("\n"));
                     break;
                 case "flatpak":
                     stdout.write("flatpak install --noninteractive".concat("\n"));

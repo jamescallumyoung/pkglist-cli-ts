@@ -45,6 +45,7 @@ pkglist parse -SUp $PREFIX ./main.pkglist | xargs $(pkglist get-script -p $PREFI
 Supported prefixes are:
 
 - `apt`, for APT.
+- `apt-repo`, for APT repositories.
 - `flatpak`, for Flatpak.
 - `snap`, for Snap (using the default install mode).
 - `snap-classic`, for Snap (using the classic install mode).
