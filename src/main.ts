@@ -118,7 +118,7 @@ yargs(hideBin(processArgv))
                     stdout.write(`${sudoCmd}apt install ${yes ? '-y' : ''}`.concat("\n"));
                     break;
                 case "apt-repo":
-                    stdout.write(`${sudoCmd}add-apt-repository ${yes ? '-y' : ''} -S`.concat("\n"));
+                    stdout.write(`${sudoCmd}add-apt-repository ${yes ? '-y' : ''}`.concat("\n"));
                     break;
                 case "flatpak":
                     stdout.write(`${sudoCmd}flatpak install ${yes ? '--noninteractive' : ''}`.concat("\n"));
