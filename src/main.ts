@@ -89,31 +89,45 @@ yargs(hideBin(processArgv))
                 description: 'Which prefix should be selected?',
                 type: 'string',
             })
+            .option('yes', {
+                alias: 'y',
+                description: 'Reduce user the need for user input by answering yes to any questions, or using a non-interactive mode, if available.',
+                type: 'boolean',
+                default: false,
+            })
+            .option('sudo', {
+                alias: 's',
+                description: 'Prefix the output script with "sudo"',
+                type: 'boolean',
+                default: false,
+            })
             .demandOption(['prefix'])
             .version(false),
         (args) => {
-            const { prefix } = args;
+            const { prefix, sudo, yes } = args;
 
             if (!supportedPrefixes.includes(prefix)) {
                 stderr.write(`Bad prefix! Must be one of: "${supportedPrefixes.join(', ')}".`.concat("\n"));
                 exit(exitCodes.badPrefix);
             }
 
+            const sudoCmd = sudo ? 'sudo ' : '';
+
             switch (prefix) {
                 case "apt":
-                    stdout.write("apt install -y".concat("\n"));
+                    stdout.write(`${sudoCmd}apt install ${yes ? '-y' : ''}`.concat("\n"));
                     break;
                 case "apt-repo":
-                    stdout.write("add-apt-repository -y -S".concat("\n"));
+                    stdout.write(`${sudoCmd}add-apt-repository ${yes ? '-y' : ''} -S`.concat("\n"));
                     break;
                 case "flatpak":
-                    stdout.write("flatpak install --noninteractive".concat("\n"));
+                    stdout.write(`${sudoCmd}flatpak install ${yes ? '--noninteractive' : ''}`.concat("\n"));
                     break;
                 case "snap":
-                    stdout.write("snap install".concat("\n"));
+                    stdout.write(`${sudoCmd}snap install`.concat("\n"));
                     break;
                 case "snap-classic":
-                    stdout.write("snap install --classic".concat("\n"));
+                    stdout.write(`${sudoCmd}snap install --classic`.concat("\n"));
                     break;
             }
         },
