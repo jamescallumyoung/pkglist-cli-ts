@@ -91,7 +91,7 @@ yargs(hideBin(processArgv))
             })
             .option('yes', {
                 alias: 'y',
-                description: 'Reduce user the need for user input by answering yes to any questions, or using a non-interactive mode, if available.',
+                description: 'Reduce the need for user input by answering yes to any questions, or by using a non-interactive mode, if available.',
                 type: 'boolean',
                 default: false,
             })

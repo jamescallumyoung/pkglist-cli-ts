@@ -83,6 +83,7 @@ Options:
   -p, --prefix          Which prefix should be selected?.    [string] [required]
   -S, --sort            Sort output.                  [boolean] [default: false]
   -U, --uniq, --unique  Make output unique.           [boolean] [default: false]
+
 ```
 
 ### `pkglist get-script`
@@ -93,8 +94,13 @@ pkglist get-script
 Get a script to invoke the selected package manager's install command.
 
 Options:
-      --help     Show help                                             [boolean]
-  -p, --prefix   Which prefix should be selected?            [string] [required]
+      --help    Show help                                              [boolean]
+  -p, --prefix  Which prefix should be selected?             [string] [required]
+  -y, --yes     Reduce the need for user input by answering yes to any questions
+                , or by using a non-interactive mode, if available.
+                                                      [boolean] [default: false]
+  -s, --sudo    Prefix the output script with "sudo"  [boolean] [default: false]
+
 ```
 
 ## Author & Licence
