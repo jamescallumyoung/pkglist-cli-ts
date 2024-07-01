@@ -1,6 +1,6 @@
 import {exit, stderr, stdout} from "node:process";
 import {exitCodes} from "../exitCodes.js";
-import {installFns} from "../installFns.js";
+import {installFns} from "../fns/installFns.js";
 import {isTPrefix, prefixes} from "../types/TPrefix.js";
 
 type GetScriptCommandHandlerArgs = { prefix: string, sudo: boolean, yes: boolean };

@@ -1,4 +1,4 @@
-import type { TPrefix } from "./types/TPrefix.js";
+import type { TPrefix } from "../types/TPrefix.js";
 
 /**
  * Functions that return a script to install packages with the selected package manager.
