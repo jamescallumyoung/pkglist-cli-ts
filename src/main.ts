@@ -73,11 +73,17 @@ yargs(hideBin(processArgv))
                 type: 'boolean',
                 default: false,
             })
+            .option('one-entry-per-line', {
+                alias: '1',
+                description: '(The numeric digit “one”.) Force output to be one entry per line.',
+                type: 'boolean',
+                default: false,
+            })
             .demandOption(['prefix'])
             .version(false),
         (args) => {
-            const { file, prefix, sort, uniq } = args;
-            void parseCommandHandler({ file, prefix, sort, uniq });
+            const { file, prefix, sort, uniq, oneEntryPerLine } = args;
+            void parseCommandHandler({ file, prefix, sort, uniq, oneEntryPerLine });
         },
     )
     .strictCommands()

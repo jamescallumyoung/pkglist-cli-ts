@@ -47,9 +47,9 @@ The `--prefix` argument must be provided, and can be provided multiple times.
 
 The `exec` command supports a few options:
 
-- `--yes`: reduces the need for user interaction during installation by using the package managers non-interactive option, if one exists
-- `--sudo`: executes all installs with 'sudo'
-- `--dry`: executes a dry run and outputs the command that would be executed without `--dry`
+- `--yes`: reduces the need for user interaction during installation by using the package managers non-interactive option, if one exists.
+- `--sudo`: Executes all installs with 'sudo'.
+- `--dry`: Executes a dry run and outputs the command that would be executed without `--dry`.
 
 #### Notes
 
@@ -82,8 +82,9 @@ Unlike with the `exec` command, it can only be provided once.
 
 The `parse` command support a few options:
 
-- `--sort`: sorts the package list alphabetically
-- `--uniq`: deduplicates the returned package list
+- `--sort`: Sorts the package list alphabetically.
+- `--uniq`: Deduplicates the returned package list.
+- `-1`: (The numeric digit “one”.) Force output to be one entry per line.
 
 ## Advanced Usage
 
@@ -92,7 +93,7 @@ The `parse` and `exec` commands can be piped together to enable more advanced wo
 ```shell
 export PREFIX="flatpak"
 cat ./path/to/file.pkglist \
-  | pkglist parse - --sort --uniq --prefix $PREFIX \
+  | pkglist parse - --sort --uniq -1 --prefix $PREFIX \
   | sed -i 's/{flathub.org}/{myflathubmirror.intranet}/g'
   | pkglist exec - --prefix $PREFIX
 ```

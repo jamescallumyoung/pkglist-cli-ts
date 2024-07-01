@@ -6,9 +6,9 @@ import {readFileOrStdin} from "../fns/readFileOrStdin.js";
 import {isTPrefix, prefixes} from "../types/TPrefix.js";
 
 
-type ParseCommandHandlerArgs = { file: string, prefix: string, sort: boolean, uniq: boolean };
+type ParseCommandHandlerArgs = { file: string, prefix: string, sort: boolean, uniq: boolean, oneEntryPerLine: boolean };
 
-export const parseCommandHandler = ({ file, prefix, sort, uniq }: ParseCommandHandlerArgs): void => {
+export const parseCommandHandler = ({ file, prefix, sort, uniq, oneEntryPerLine }: ParseCommandHandlerArgs): void => {
 
     if (!isTPrefix(prefix)) {
         stderr.write(`Bad prefix! Must be one of: "${prefixes.join(', ')}".`.concat("\n"));
@@ -19,19 +19,26 @@ export const parseCommandHandler = ({ file, prefix, sort, uniq }: ParseCommandHa
 
     const matched = getMatchingLines(fileContent, prefix);
 
-    let out = "";
+    const list: string[] = [];
     if (sort && uniq) {
-        out = sortedUniq(sortBy(matched)).join(' ');
+        list.push(...sortedUniq(sortBy(matched)));
     }
     else if (sort && !uniq) {
-        out = sortBy(matched).join(' ');
+        list.push(...sortBy(matched));
     }
     else if (!sort && uniq) {
-        out = makeUniq(matched).join(' ');
+        list.push(...makeUniq(matched));
     }
     else { // !sort && !uniq
-        out = matched.join(' ');
+        list.push(...matched);
     }
 
-    stdout.write(out.concat("\n"));
+    if (oneEntryPerLine) {
+        for (const entry of list) {
+            stdout.write(entry.concat("\n"));
+        }
+    }
+    else {
+        stdout.write(list.join(" ").concat("\n"));
+    }
 };
