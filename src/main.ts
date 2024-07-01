@@ -4,7 +4,6 @@ import {argv as processArgv} from "node:process";
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 import {execCommandHandler} from "./commands/execCommandHandler.js";
-import {getScriptCommandHandler} from "./commands/getScriptCommandHandler.js";
 import {parseCommandHandler} from "./commands/parseCommandHandler.js";
 
 yargs(hideBin(processArgv))
@@ -41,34 +40,6 @@ yargs(hideBin(processArgv))
         (args) => {
             const { file, prefix, sort, uniq } = args;
             void parseCommandHandler({ file, prefix, sort, uniq });
-        },
-    )
-    .command(
-        'get-script',
-        'Get a script to invoke the selected package manager\'s install command.',
-        (yargs) => yargs
-            .option('prefix', {
-                alias: 'p',
-                description: 'Which prefix should be selected?',
-                type: 'string',
-            })
-            .option('yes', {
-                alias: 'y',
-                description: 'Reduce the need for user input by answering yes to any questions, or by using a non-interactive mode, if available.',
-                type: 'boolean',
-                default: false,
-            })
-            .option('sudo', {
-                alias: 's',
-                description: 'Prefix the output script with "sudo"',
-                type: 'boolean',
-                default: false,
-            })
-            .demandOption(['prefix'])
-            .version(false),
-        (args) => {
-            const { prefix, sudo, yes } = args;
-            void getScriptCommandHandler({ prefix, sudo, yes });
         },
     )
     .command(

@@ -4,64 +4,98 @@ This package is a CLI for working with the [pkglist][1] format.
 
 The CLI provides the following commands:
 
+- `exec` parses a pkglist file and runs an install script for all selected packages.
 - `parse` parses a pkglist file and returns the packages installable by the selected package manager,
-- `get-script` returns an install script for the selected package manager.
-- `exec` parse a pkglist file and run an install script for all selected packages.
+
+## Supported Package Managers
+
+The pkglist format uses "prefixes" to determine which package manager should be used to install a package.
+The prefixes supported by this CLI are:
+
+| Package Manager              | Prefix       | Supports Multi-package Installs? |
+|------------------------------|--------------|----------------------------------|
+| APT                          | apt          | yes                              |
+| Add APT Repository           | apt-repo     | no                               |
+| Flatpak                      | flatpak      | no                               |
+| Snap (default install mode)  | snap         | no                               |
+| Snap (classic install mode*) | snap-classic | no                               |
+
+*: Classic install mode escapes Snap's package sandbox and is required by some packages. 
 
 ## Usage
 
-#### parse
+### exec
+
+The `exec` command is the most important command offered by this CLI and provides a simple way to work with pkglist files.
+
+Run `exec` to install all the packages in the provided pkglist file that can be installed with the selected package managers.
+
+```shell
+# reading from a file
+pkglist exec ./path/to/file.pkglist --prefix apt --prefix snap
+
+# or from stdin
+echo "apt firefox" | pkglist exec - --prefix apt
+```
+
+The file path (or `-` to read from stdin) must be provided as the first positional argument.
+
+The `--prefix` argument must be provided, and can be provided multiple times.
+
+
+#### Options
+
+The `exec` command supports a few options:
+
+- `--yes`: reduces the need for user interaction during installation by using the package managers non-interactive option, if one exists
+- `--sudo`: executes all installs with 'sudo'
+- `--dry`: executes a dry run and outputs the command that would be executed without `--dry`
+
+#### Notes
+
+**sudo**: Some package managers require installs to be made with 'sudo', whilst others don't like it.
+It is up to the user to determine if `--sudo` should be used.
+
+**Multi-package installs**: Some package managers' install commands support installing multiple packages at once.
+Others do not.
+Where a package manager supports installing multiple packages at once, a single install command will be executed.
+Where a package manager does not support installing multiple packages at once, a separate install command will be executed for each package.
+
+### parse
 
 The `parse` command is used to get all package entries, with the selected prefix, from a pkglist:
 
 ```shell
-# from a file
-pkglist parse -p apt ./main.pkglist
-
-# from STDIN
-cat ./main.pkglist | pkglist parse -p apt
-```
-
-#### get-script
-
-The `get-script` command is used to get a script that may be used to invoke the selected package manager:
-
-```shell
-pkglist get-script -p apt
-```
-
-The script returned by `get-script` is non-prescriptive; you're welcome to alter it however you want, or to provide your own.
-
-#### combining commands
-
-The `parse` and `get-script` commands can be piped together as follows:
-
-```shell
-export PREFIX="apt"
-pkglist parse -SUp $PREFIX ./main.pkglist | xargs $(pkglist get-script -p $PREFIX)
-```
-
-#### exec
-
-The `exec` command is functionally identical to using `parse` and `get-script` together, but much easier to invoke.
-Simply run `exec` to install all the packages in the pkglist file for the selected package managers.
-
-```shell
-pkglist exec path/to/file.pkglist --prefix apt --prefix snap --yes
+# reading from a file
+pkglist parse ./main.pkglist --prefix apt
 
 # or from stdin
-echo "apt firefox" | pkglist exec - --prefix apt --yes --sudo
+cat ./main.pkglist | pkglist parse - --prefix apt
 ```
 
-#### supported prefixes
+The file path (or `-` to read from stdin) must be provided as the first positional argument.
 
-Supported prefixes are:
+The `--prefix` argument must be provided.
+Unlike with the `exec` command, it can only be provided once.
 
-- `apt`, for APT.
-- `apt-repo`, for APT repositories.
-- `flatpak`, for Flatpak.
-- `snap`, for Snap (using the default install mode).
-- `snap-classic`, for Snap (using the classic install mode).
+#### Options
+
+The `parse` command support a few options:
+
+- `--sort`: sorts the package list alphabetically
+- `--uniq`: deduplicates the returned package list
+
+## Advanced Usage
+
+The `parse` and `exec` commands can be piped together to enable more advanced workflows.
+
+```shell
+export PREFIX="flatpak"
+cat ./path/to/file.pkglist \
+  | pkglist parse - --sort --uniq --prefix $PREFIX \
+  | sed -i 's/{flathub.org}/{myflathubmirror.intranet}/g'
+  | pkglist exec - --prefix $PREFIX
+```
 
 ## Documentation & Manpage
 
