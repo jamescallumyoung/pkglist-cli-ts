@@ -6,9 +6,9 @@ import {readFileOrStdin} from "../fns/readFileOrStdin.js";
 import {isTPrefix, prefixes} from "../types/TPrefix.js";
 
 
-type ParseCommandHandlerArgs = { file: string, prefix: string, sort: boolean, uniq: boolean, oneEntryPerLine: boolean };
+type ParseCommandHandlerArgs = { file: string, prefix: string, sort: boolean, uniq: boolean, oneEntryPerLine: boolean, retainPrefix: boolean };
 
-export const parseCommandHandler = ({ file, prefix, sort, uniq, oneEntryPerLine }: ParseCommandHandlerArgs): void => {
+export const parseCommandHandler = ({ file, prefix, sort, uniq, oneEntryPerLine, retainPrefix }: ParseCommandHandlerArgs) => {
 
     if (!isTPrefix(prefix)) {
         stderr.write(`Bad prefix! Must be one of: "${prefixes.join(', ')}".`.concat("\n"));
@@ -35,10 +35,17 @@ export const parseCommandHandler = ({ file, prefix, sort, uniq, oneEntryPerLine 
 
     if (oneEntryPerLine) {
         for (const entry of list) {
-            stdout.write(entry.concat("\n"));
+            if (retainPrefix) {
+                stdout.write(prefix.concat(" ").concat(entry).concat("\n"));
+            }
+            else {
+                stdout.write(entry.concat("\n"));
+            }
         }
     }
     else {
         stdout.write(list.join(" ").concat("\n"));
     }
+
+
 };

@@ -79,6 +79,11 @@ yargs(hideBin(processArgv))
                 type: 'boolean',
                 default: false,
             })
+            .option('retain-prefix', {
+                description: 'Print the prefix before each package identifier. Requires "--one-entry-per-line" to be set.',
+                type: 'boolean',
+                default: false,
+            })
             .demandOption(['prefix'])
             .version(false),
         (args) => {
