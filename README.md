@@ -6,6 +6,7 @@ The CLI provides the following commands:
 
 - `parse` parses a pkglist file and returns the packages installable by the selected package manager,
 - `get-script` returns an install script for the selected package manager.
+- `exec` parse a pkglist file and run an install script for all selected packages.
 
 ## Usage
 
@@ -40,6 +41,18 @@ export PREFIX="apt"
 pkglist parse -SUp $PREFIX ./main.pkglist | xargs $(pkglist get-script -p $PREFIX)
 ```
 
+#### exec
+
+The `exec` command is functionally identical to using `parse` and `get-script` together, but much easier to invoke.
+Simply run `exec` to install all the packages in the pkglist file for the selected package managers.
+
+```shell
+pkglist exec path/to/file.pkglist --prefix apt --prefix snap --yes
+
+# or from stdin
+echo "apt firefox" | pkglist exec - --prefix apt --yes --sudo
+```
+
 #### supported prefixes
 
 Supported prefixes are:
@@ -50,58 +63,9 @@ Supported prefixes are:
 - `snap`, for Snap (using the default install mode).
 - `snap-classic`, for Snap (using the classic install mode).
 
-## Manpage
+## Documentation & Manpage
 
-### `pkglist`
-
-```
-pkglist <command>
-
-Commands:
-  pkglist parse [file]  Parse a pkglist file for the selected package manager.
-  pkglist get-script    Get a script to invoke the selected package manager's
-                        install command.
-
-Options:
-  --help     Show help                                                 [boolean]
-  --version  Show version number                                       [boolean]
-```
-
-### `pkglist parse`
-
-```
-pkglist parse [file]
-
-Parse a pkglist file for the selected package manager.
-
-Positionals:
-  file  Filepath to a pkglist file. Or "-", to read from stdin.
-                                                         [string] [default: "-"]
-
-Options:
-      --help            Show help                                      [boolean]
-  -p, --prefix          Which prefix should be selected?.    [string] [required]
-  -S, --sort            Sort output.                  [boolean] [default: false]
-  -U, --uniq, --unique  Make output unique.           [boolean] [default: false]
-
-```
-
-### `pkglist get-script`
-
-```
-pkglist get-script
-
-Get a script to invoke the selected package manager's install command.
-
-Options:
-      --help    Show help                                              [boolean]
-  -p, --prefix  Which prefix should be selected?             [string] [required]
-  -y, --yes     Reduce the need for user input by answering yes to any questions
-                , or by using a non-interactive mode, if available.
-                                                      [boolean] [default: false]
-  -s, --sudo    Prefix the output script with "sudo"  [boolean] [default: false]
-
-```
+Execute `pkglist --help` to see the help text / manpage for this CLI.
 
 ## Author & Licence
 
