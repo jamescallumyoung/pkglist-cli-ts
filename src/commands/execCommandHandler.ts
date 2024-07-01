@@ -24,6 +24,10 @@ export const execCommandHandler = async ({ file, prefixes, yes, sudo, dry }: Exe
     for (const prefix of prefixes) {
         const matchedUniq = makeUniq(getMatchingLines(fileContent, prefix));
 
+        if (matchedUniq.length === 0) {
+            break;
+        }
+
         if (packageManagerAcceptsMany[prefix]) {
             const script = installFns[prefix](sudo, yes).concat(" ").concat(matchedUniq.join(" "));
             commands.push(script);
