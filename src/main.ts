@@ -49,7 +49,7 @@ yargs(hideBin(processArgv))
     )
     .command(
         'parse [file]',
-        'Get a list of packages that can be installed with the specified package manager.',
+        'Get a list of packages that can be installed with the selected package manager.',
         (yargs) => yargs
             .positional('file', {
                 describe: 'Filepath to a pkglist file. Or "-", to read from stdin.',
