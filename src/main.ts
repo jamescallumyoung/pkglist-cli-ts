@@ -43,7 +43,7 @@ yargs(hideBin(processArgv))
         },
     )
     .command(
-        'exec',
+        'exec [file]',
         'Install packages from a file, with the selected package managers.',
         (yargs) => yargs
             .positional('file', {
