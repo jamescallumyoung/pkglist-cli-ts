@@ -5,18 +5,18 @@ import type { TPrefix } from "../types/TPrefix.js";
  */
 export const installFns: { [k in TPrefix]: (sudo: boolean, yes: boolean) => string } = {
     apt: (sudo, yes) => {
-        return `${sudo ? 'sudo ' : ''}apt install ${yes ? '-y' : ''}`
+        return `${sudo ? 'sudo ' : ''} apt install ${yes ? '-y' : ''}`.trim()
     },
     "apt-repo": (sudo, yes) => {
-        return `${sudo ? 'sudo ' : ''}add-apt-repository ${yes ? '-y' : ''}`
+        return `${sudo ? 'sudo ' : ''} add-apt-repository ${yes ? '-y' : ''}`.trim()
     },
     flatpak: (sudo, yes) => {
-        return `${sudo ? 'sudo ' : ''}flatpak install ${yes ? '--noninteractive' : ''}`
+        return `${sudo ? 'sudo ' : ''} flatpak install ${yes ? '--noninteractive' : ''}`.trim()
     },
     snap: (sudo, yes) => {
-        return `${sudo ? 'sudo ' : ''}snap install`
+        return `${sudo ? 'sudo ' : ''} snap install`.trim()
     },
     "snap-classic": (sudo, yes) => {
-        return `${sudo ? 'sudo ' : ''}snap install --classic`
+        return `${sudo ? 'sudo ' : ''} snap install --classic`.trim()
     },
 };
