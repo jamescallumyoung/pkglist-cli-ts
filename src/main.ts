@@ -8,41 +8,6 @@ import {parseCommandHandler} from "./commands/parseCommandHandler.js";
 
 yargs(hideBin(processArgv))
     .command(
-        'parse [file]',
-        'Get a list of packages that can be installed with the specified package manager.'+
-        '\n'+
-        'This function is especially useful if you want to use your own install command, and just need the package list.',
-        (yargs) => yargs
-            .positional('file', {
-                describe: 'Filepath to a pkglist file. Or "-", to read from stdin.',
-                type: 'string',
-                default: '-',
-            })
-            .option('prefix', {
-                alias: 'p',
-                description: 'Which prefix should be selected?.',
-                type: 'string',
-            })
-            .option('sort', {
-                alias: 'S',
-                description: 'Sort output.',
-                type: 'boolean',
-                default: false,
-            })
-            .option('uniq', {
-                alias: ['U', 'unique'],
-                description: 'Make output unique.',
-                type: 'boolean',
-                default: false,
-            })
-            .demandOption(['prefix'])
-            .version(false),
-        (args) => {
-            const { file, prefix, sort, uniq } = args;
-            void parseCommandHandler({ file, prefix, sort, uniq });
-        },
-    )
-    .command(
         'exec [file]',
         'Install packages from a file, with the selected package managers.',
         (yargs) => yargs
@@ -80,6 +45,39 @@ yargs(hideBin(processArgv))
         (args) => {
             const { file, prefix, sudo, yes, dry } = args;
             void execCommandHandler({ file, prefixes: prefix, sudo, yes, dry });
+        },
+    )
+    .command(
+        'parse [file]',
+        'Get a list of packages that can be installed with the specified package manager.',
+        (yargs) => yargs
+            .positional('file', {
+                describe: 'Filepath to a pkglist file. Or "-", to read from stdin.',
+                type: 'string',
+                default: '-',
+            })
+            .option('prefix', {
+                alias: 'p',
+                description: 'Which prefix should be selected?.',
+                type: 'string',
+            })
+            .option('sort', {
+                alias: 'S',
+                description: 'Sort output.',
+                type: 'boolean',
+                default: false,
+            })
+            .option('uniq', {
+                alias: ['U', 'unique'],
+                description: 'Make output unique.',
+                type: 'boolean',
+                default: false,
+            })
+            .demandOption(['prefix'])
+            .version(false),
+        (args) => {
+            const { file, prefix, sort, uniq } = args;
+            void parseCommandHandler({ file, prefix, sort, uniq });
         },
     )
     .strictCommands()
