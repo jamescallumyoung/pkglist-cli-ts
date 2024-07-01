@@ -91,11 +91,10 @@ The `parse` command support a few options:
 The `parse` and `exec` commands can be piped together to enable more advanced workflows.
 
 ```shell
-export PREFIX="flatpak"
 cat ./path/to/file.pkglist \
-  | pkglist parse - --sort --uniq -1 --prefix $PREFIX \
-  | sed -i 's/{flathub.org}/{myflathubmirror.intranet}/g'
-  | pkglist exec - --prefix $PREFIX
+  | pkglist parse - --sort --uniq -1 --retain-prefix --prefix flatpak \
+  | sed -e 's/flathub.org/myflathubmirror.intranet/g' \
+  | pkglist exec - --prefix flatpak --dry
 ```
 
 ## Documentation & Manpage
