@@ -1,4 +1,5 @@
 import {stdin} from "node:process";
+import {createInterface} from "node:readline";
 import {readFileSync} from "node:fs";
 
 /**
@@ -6,8 +7,19 @@ import {readFileSync} from "node:fs";
  *
  * @argument file is either a relative file path, or the string "-".
  */
-export const readFileOrStdin = (filePathOrDash: string): string => {
-    const inputFile = (filePathOrDash === '-') ? stdin.fd : filePathOrDash;
+export const readFileOrStdin = async (filePathOrDash: string): Promise<string> => {
+    if (filePathOrDash === "-") {
+        const rl = createInterface({
+            input: process.stdin,
+            // output: process.stdout
+        });
 
-    return readFileSync(inputFile, 'utf-8');
+        let lines: string[] = [];
+        for await (const line of rl) {
+            lines.push(line);
+        }
+        return lines.join("\n");
+    }
+
+    return readFileSync(filePathOrDash, 'utf-8');
 }

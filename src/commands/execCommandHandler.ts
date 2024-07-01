@@ -11,14 +11,14 @@ import {isTPrefix, prefixes as supportedPrefixes} from "../types/TPrefix.js";
 
 type ExecCommandHandlerArgs = { file: string, prefixes: string[], yes: boolean, sudo: boolean, dry: boolean };
 
-export const execCommandHandler = ({ file, prefixes, yes, sudo, dry }: ExecCommandHandlerArgs): void => {
+export const execCommandHandler = async ({ file, prefixes, yes, sudo, dry }: ExecCommandHandlerArgs) => {
 
     if (!prefixes.every(isTPrefix)) {
         stderr.write(`Bad prefix! Got: "${prefixes.join(', ')}". Must be one of: "${supportedPrefixes.join(', ')}".`.concat("\n"));
         exit(exitCodes.badPrefix);
     }
 
-    const fileContent = readFileOrStdin(file);
+    const fileContent = await readFileOrStdin(file);
 
     const commands: string[] = [];
     for (const prefix of prefixes) {

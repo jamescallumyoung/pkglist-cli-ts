@@ -87,8 +87,8 @@ yargs(hideBin(processArgv))
             .demandOption(['prefix'])
             .version(false),
         (args) => {
-            const { file, prefix, sort, uniq, oneEntryPerLine } = args;
-            void parseCommandHandler({ file, prefix, sort, uniq, oneEntryPerLine });
+            const { file, prefix, sort, uniq, oneEntryPerLine, retainPrefix } = args;
+            void parseCommandHandler({ file, prefix, sort, uniq, oneEntryPerLine, retainPrefix });
         },
     )
     .strictCommands()

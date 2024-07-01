@@ -8,14 +8,14 @@ import {isTPrefix, prefixes} from "../types/TPrefix.js";
 
 type ParseCommandHandlerArgs = { file: string, prefix: string, sort: boolean, uniq: boolean, oneEntryPerLine: boolean, retainPrefix: boolean };
 
-export const parseCommandHandler = ({ file, prefix, sort, uniq, oneEntryPerLine, retainPrefix }: ParseCommandHandlerArgs) => {
+export const parseCommandHandler = async ({ file, prefix, sort, uniq, oneEntryPerLine, retainPrefix }: ParseCommandHandlerArgs) => {
 
     if (!isTPrefix(prefix)) {
         stderr.write(`Bad prefix! Must be one of: "${prefixes.join(', ')}".`.concat("\n"));
         exit(exitCodes.badPrefix);
     }
 
-    const fileContent = readFileOrStdin(file);
+    const fileContent = await readFileOrStdin(file);
 
     const matched = getMatchingLines(fileContent, prefix);
 
