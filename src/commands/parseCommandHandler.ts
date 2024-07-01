@@ -1,8 +1,9 @@
 import {sortBy, sortedUniq, uniq as makeUniq} from "lodash-es";
-import {readFileSync} from "node:fs";
-import {exit, stderr, stdin, stdout} from "node:process";
+import {exit, stderr, stdout} from "node:process";
 import {exitCodes} from "../exitCodes.js";
 import {isTPrefix, prefixes} from "../types/TPrefix.js";
+import {readFileOrStdin} from "../fns/readFileOrStdin.js";
+
 
 type ParseCommandHandlerArgs = { file: string, prefix: string, sort: boolean, uniq: boolean };
 
@@ -13,9 +14,7 @@ export const parseCommandHandler = ({ file, prefix, sort, uniq }: ParseCommandHa
         exit(exitCodes.badPrefix);
     }
 
-    const inputFile = (file === '-') ? stdin.fd : file;
-
-    const fileContent = readFileSync(inputFile, 'utf-8');
+    const fileContent = readFileOrStdin(file);
 
     const matched = fileContent.split('\n')
         .filter(line => line.startsWith(`${prefix} `))
