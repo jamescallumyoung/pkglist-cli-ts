@@ -1,8 +1,9 @@
 import {sortBy, sortedUniq, uniq as makeUniq} from "lodash-es";
 import {exit, stderr, stdout} from "node:process";
 import {exitCodes} from "../exitCodes.js";
-import {isTPrefix, prefixes} from "../types/TPrefix.js";
+import {getMatchingLines} from "../fns/getMatchingLines.js";
 import {readFileOrStdin} from "../fns/readFileOrStdin.js";
+import {isTPrefix, prefixes} from "../types/TPrefix.js";
 
 
 type ParseCommandHandlerArgs = { file: string, prefix: string, sort: boolean, uniq: boolean };
@@ -16,9 +17,7 @@ export const parseCommandHandler = ({ file, prefix, sort, uniq }: ParseCommandHa
 
     const fileContent = readFileOrStdin(file);
 
-    const matched = fileContent.split('\n')
-        .filter(line => line.startsWith(`${prefix} `))
-        .map(line => line.substring(prefix.length+1));
+    const matched = getMatchingLines(fileContent, prefix);
 
     let out = "";
     if (sort && uniq) {
