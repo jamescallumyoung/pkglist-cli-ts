@@ -1,13 +1,12 @@
 import {uniq as makeUniq} from "lodash-es";
-import {execSync} from "node:child_process";
 import {exit, stderr, stdout} from "node:process";
 import {exitCodes} from "../exitCodes.js";
+import {createPromiseForChildProcess} from "../fns/createPromiseForChildProcess.js";
 import {getMatchingLines} from "../fns/getMatchingLines.js";
 import {installFns} from "../fns/installFns.js";
 import {readFileOrStdin} from "../fns/readFileOrStdin.js";
 import {packageManagerAcceptsMany} from "../packageManagerAcceptsMany.js";
 import {isTPrefix, prefixes as supportedPrefixes} from "../types/TPrefix.js";
-
 
 type ExecCommandHandlerArgs = { file: string, prefixes: string[], yes: boolean, sudo: boolean, dry: boolean };
 
@@ -40,10 +39,20 @@ export const execCommandHandler = async ({ file, prefixes, yes, sudo, dry }: Exe
         }
     }
 
-    if (dry) {
-        stdout.write(commands.join("; ").concat("\n"));
-    }
-    else {
-        execSync(commands.join("; "));
+    stdout.write((dry)
+        ? "This is a dry run. The following commands would have been executed:\n"
+        : "The following commands will now be executed:\n",
+    );
+    stdout.write(commands.join("; ").concat("\n"));
+
+    if (!dry) {
+        for (const command of commands) {
+            stdout.write(`Executing: "${command}"`.concat("\n"));
+            await createPromiseForChildProcess(command)
+                .catch((errorMsg: string) => {
+                    stderr.write(errorMsg.concat("\n"));
+                });
+        }
+        stdout.write("...done!\n");
     }
 };
