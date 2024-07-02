@@ -1,7 +1,7 @@
 {
   "name": "pkglist-cli",
   "packageManager": "yarn@4.1.1+sha256.f3cc0eda8e5560e529c7147565b30faa43b4e472d90e8634d7134a37c7f59781",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "type": "module",
   "bin": {
     "pkglist": "./build/esm/main.js"
@@ -23,7 +23,8 @@
     "typescript": "^5.4.3"
   },
   "files": [
-    "build/esm/main.js"
+    "build/esm/**/*.js",
+    "build/ts/**/*.d.ts"
   ],
   "keywords": [
     "pkglist",
