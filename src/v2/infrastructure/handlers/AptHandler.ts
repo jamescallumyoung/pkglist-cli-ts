@@ -1,4 +1,5 @@
 import type {TInstallPackagesWithEntryTypeCommand} from "&/application/commands/TInstallPackagesWithEntryTypeCommand.js";
+import {createPromiseForChildProcess} from "&/infrastructure/utils/createPromiseForChildProcess.js";
 import {installFns, PLACEHOLDER} from "&/infrastructure/utils/installFns.js";
 
 export class AptHandler {
@@ -9,19 +10,19 @@ export class AptHandler {
             console.log(`[apt handler] ${commandString}`);
         }
         else {
-            console.log(`<<< not a dry run --- ${commandString} >>>`);
+            await createPromiseForChildProcess(`${commandString}`);
         }
     }
 
     static async installAptRepository(command: TInstallPackagesWithEntryTypeCommand): Promise<void> {
-        for (const pkg of command.packages) {
+        for await (const pkg of command.packages) {
             const commandString = AptHandler.makeAddAptRepositoryCommand(pkg);
 
             if (command.config.dryRun) {
                 console.log(`[apt-repo handler] ${commandString}`);
             }
             else {
-                console.log(`<<< not a dry run --- ${commandString} >>>`);
+                await createPromiseForChildProcess(`${commandString}`);
             }
         }
     }

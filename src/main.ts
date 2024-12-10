@@ -10,7 +10,7 @@ const service = installationService(port);
 
 await service({
     config: {
-        dryRun: true,
+        dryRun: false,
     },
     entries: [
         {
