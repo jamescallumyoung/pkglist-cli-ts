@@ -2,6 +2,10 @@ import {stdin} from "node:process";
 import {createInterface} from "node:readline";
 import {readFileSync} from "node:fs";
 
+// import { open } from 'node:fs/promises';
+//
+// const file = await open('./some/file/to/read');
+
 /**
  * Read a file from the given path, or from stdin if the path is "-".
  *
