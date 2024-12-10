@@ -1,10 +1,5 @@
-import {stdin} from "node:process";
-import {createInterface} from "node:readline";
 import {readFileSync} from "node:fs";
-
-// import { open } from 'node:fs/promises';
-//
-// const file = await open('./some/file/to/read');
+import {createInterface} from "node:readline";
 
 /**
  * Read a file from the given path, or from stdin if the path is "-".
@@ -15,7 +10,6 @@ export const readFileOrStdin = async (filePathOrDash: string): Promise<string> =
     if (filePathOrDash === "-") {
         const rl = createInterface({
             input: process.stdin,
-            // output: process.stdout
         });
 
         let lines: string[] = [];

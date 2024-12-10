@@ -11,11 +11,14 @@
     "start": "node ./build/esm/main.js"
   },
   "dependencies": {
+    "js-yaml": "^4.1.0",
+    "json5": "^2.2.3",
     "lodash-es": "^4.17.21",
     "tslib": "^2.6.2",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.12.4",
     "@types/yargs": "^17.0.32",

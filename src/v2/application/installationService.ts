@@ -3,7 +3,7 @@ import {getNextEntryType} from "&/application/utils/getNextEntryType.js";
 import type {TEntryTypePort} from "./ports/TEntryTypePort.js";
 import type {TPkglistEntry} from "../types.js";
 
-export const installationService =
+export const __installationService =
     (entryTypePort: TEntryTypePort) =>
     async (f: { config: { dryRun: boolean }, entries: TPkglistEntry[] }) => {
 
