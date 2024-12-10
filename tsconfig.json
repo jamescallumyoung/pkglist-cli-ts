@@ -28,7 +28,13 @@
     "strict": true,                                      /* Enable all strict type-checking options. */
 
     /* Completeness */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
+
+    "paths": {
+      "&/application/*": ["./src/v2/application/*"],
+      "&/infrastructure/*": ["./src/v2/infrastructure/*"],
+      "&/presentation/*": ["./src/v2/presentation/*"]
+    }
   },
   "include": ["./src"]
 }
