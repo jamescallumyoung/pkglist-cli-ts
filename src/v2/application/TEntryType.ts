@@ -1,4 +1,6 @@
 export const EntryTypes = [
+    "apt",
+    "apt-repo",
     "echo",
     "echo2",
     "echo3",

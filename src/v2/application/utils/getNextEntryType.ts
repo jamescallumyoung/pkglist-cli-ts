@@ -3,6 +3,8 @@ import type {TEntryType} from "&/application/TEntryType.js";
 
 export const getNextEntryType = (lastEntryType: TEntryType | undefined) => {
     const entryTypesInOrder: TEntryType[] = [
+        "apt-repo",
+        "apt",
         "echo",
         "echo2",
         "echo3",

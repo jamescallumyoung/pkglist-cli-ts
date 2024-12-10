@@ -4,7 +4,7 @@ import type {TEntryTypePort} from "&/application/ports/TEntryTypePort.js";
 import {EntryTypeAdaptor} from "&/infrastructure/adaptors/EntryTypeAdaptor.js";
 import {installationService} from "&/application/installationService.js";
 
-const port: TEntryTypePort = new EntryTypeAdaptor([ 'echo', 'echo2', 'echo3' ]);
+const port: TEntryTypePort = new EntryTypeAdaptor([ 'echo', 'echo2', 'echo3', 'apt', 'apt-repo' ]);
 
 // await port.installPackagesWithEntryType({
 //     type: 'echo',
@@ -20,28 +20,28 @@ const service = installationService(port);
 await service({
     entries: [
         {
-            type: 'echo2',
-            package: '2foo',
+            type: 'apt',
+            package: 'ugrep',
         },
         {
-            type: 'echo2',
-            package: '2bar',
+            type: 'apt',
+            package: 'bat',
         },
         {
             type: 'echo',
             package: 'bar',
         },
         {
-            type: 'echo3',
-            package: '3foo',
-        },
-        {
             type: 'echo',
             package: 'foo',
         },
         {
-            type: 'echo3',
-            package: '3bar',
+            type: 'apt-repo',
+            package: 'apt-repo-a',
+        },
+        {
+            type: 'apt-repo',
+            package: 'apt-repo-b',
         },
     ],
 });
