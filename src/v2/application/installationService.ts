@@ -1,11 +1,11 @@
 import {groupBy} from "lodash-es";
+import {getNextEntryType} from "&/application/utils/getNextEntryType.js";
 import type {TEntryTypePort} from "./ports/TEntryTypePort.js";
 import type {TPkglistEntry} from "../types.js";
-import {getNextEntryType} from "&/application/utils/getNextEntryType.js";
 
 export const installationService =
     (entryTypePort: TEntryTypePort) =>
-    async (f: { entries: TPkglistEntry[] }) => {
+    async (f: { config: { dryRun: boolean }, entries: TPkglistEntry[] }) => {
 
         // Group the entries together by their EntryType. Each group is processed together.
         // The underlying handlers (AptHandler, SnapHandler, etc.) determine how to process the groups.
@@ -23,6 +23,9 @@ export const installationService =
                 const packages = entries.map(entry => entry.package);
 
                 await entryTypePort.installPackagesWithEntryType({
+                    config: {
+                        dryRun: f.config.dryRun,
+                    },
                     type: currentEntryType,
                     packages,
                 });

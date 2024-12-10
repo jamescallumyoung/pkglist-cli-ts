@@ -18,6 +18,9 @@ const port: TEntryTypePort = new EntryTypeAdaptor([ 'echo', 'echo2', 'echo3', 'a
 const service = installationService(port);
 
 await service({
+    config: {
+        dryRun: false,
+    },
     entries: [
         {
             type: 'apt',
