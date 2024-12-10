@@ -1,14 +1,14 @@
 import type {TEntryType} from "&/application/TEntryType.js";
-import type {TInstallPackagesWithTypeCommand} from "&/application/commands/TInstallPackagesWithTypeCommand.js";
-import type {THandlerPort} from "&/application/ports/THandlerPort.js";
+import type {TInstallPackagesWithEntryTypeCommand} from "&/application/commands/TInstallPackagesWithEntryTypeCommand.js";
+import type {TEntryTypePort} from "&/application/ports/TEntryTypePort.js";
 import {EchoHandler} from "../handlers/EchoHandler.js";
 
-export class HandlerAdaptor implements THandlerPort {
+export class EntryTypeAdaptor implements TEntryTypePort {
     constructor(
        public readonly supportedTypes: TEntryType[],
     ) {}
 
-    async installPackage(command: TInstallPackagesWithTypeCommand): Promise<void> {
+    async installPackage(command: TInstallPackagesWithEntryTypeCommand): Promise<void> {
         if (!this.supportedTypes.includes(command.type)) {
             throw new Error(`Cannot process installation command for unsupported type: ${command.type}`);
         }

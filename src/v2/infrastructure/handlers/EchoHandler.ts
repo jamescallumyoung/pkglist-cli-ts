@@ -1,7 +1,7 @@
-import type {TInstallPackagesWithTypeCommand} from "&/application/commands/TInstallPackagesWithTypeCommand.js";
+import type {TInstallPackagesWithEntryTypeCommand} from "&/application/commands/TInstallPackagesWithEntryTypeCommand.js";
 
 export class EchoHandler {
-    static handleInstallCommand(command: TInstallPackagesWithTypeCommand): void {
+    static handleInstallCommand(command: TInstallPackagesWithEntryTypeCommand): void {
         for (const p of command.packages) {
             console.log(`[echo] ${p}`);
         }

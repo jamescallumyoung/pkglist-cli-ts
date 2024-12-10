@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import type {THandlerPort} from "./v2/application/ports/THandlerPort.js";
-import {HandlerAdaptor} from "./v2/infrastructure/adaptors/HandlerAdaptor.js";
+import type {TEntryTypePort} from "&/application/ports/TEntryTypePort.js";
+import {EntryTypeAdaptor} from "&/infrastructure/adaptors/EntryTypeAdaptor.js";
 
-const port: THandlerPort = new HandlerAdaptor([ 'echo' ]);
+const port: TEntryTypePort = new EntryTypeAdaptor([ 'echo' ]);
 
 await port.installPackage({
     type: 'echo',
