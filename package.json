@@ -11,6 +11,7 @@
     "start": "node ./build/esm/main.js"
   },
   "dependencies": {
+    "chalk": "^5.3.0",
     "js-yaml": "^4.1.0",
     "json5": "^2.2.3",
     "lodash-es": "^4.17.21",

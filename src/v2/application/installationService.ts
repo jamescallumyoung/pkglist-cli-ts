@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import {groupBy} from "lodash-es";
 import {getNextEntryType} from "&/application/utils/getNextEntryType.js";
 import type {TEntryTypePort} from "./ports/TEntryTypePort.js";
@@ -17,7 +18,7 @@ export const __installationService =
 
         while (currentEntryType !== undefined) {
             if (entriesGroupedByEntryType[currentEntryType] !== undefined) {
-                console.debug(`[installationService] handling: "${currentEntryType}"`);
+                console.debug(chalk.yellow(`[installationService] handling: "${currentEntryType}"`));
 
                 const entries = entriesGroupedByEntryType[currentEntryType];
                 const packages = entries.map(entry => entry.package);
