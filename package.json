@@ -1,15 +1,14 @@
 {
   "name": "pkglist-cli",
-  "packageManager": "yarn@4.1.1+sha256.f3cc0eda8e5560e529c7147565b30faa43b4e472d90e8634d7134a37c7f59781",
-  "version": "0.11.1",
+  "version": "0.12.0",
   "type": "module",
   "bin": {
     "pkglist": "./build/esm/main.js"
   },
   "scripts": {
-    "build": "yarn run tsc",
-    "clean": "yarn dlx rimraf ./build",
-    "start": "yarn node ./build/esm/main.js"
+    "build": "tsc",
+    "clean": "pnpx rimraf ./build",
+    "start": "node ./build/esm/main.js"
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
@@ -26,6 +25,7 @@
     "build/esm/**/*.js",
     "build/ts/**/*.d.ts"
   ],
+  "packageManager": "pnpm@10.0.0-beta.2+sha512.d219a39dda2e29a05cc721cb9e31483a79c7b49ffafa8001a25f74ac8c0bb7eea2f2b3f415dc3b65a3a0443acff389f1058ec0efa84e7fdf420684b626004b2a",
   "keywords": [
     "pkglist",
     "package-management",
