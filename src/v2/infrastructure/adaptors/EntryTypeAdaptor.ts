@@ -8,7 +8,7 @@ export class EntryTypeAdaptor implements TEntryTypePort {
        public readonly supportedTypes: TEntryType[],
     ) {}
 
-    async installPackage(command: TInstallPackagesWithEntryTypeCommand): Promise<void> {
+    async installPackagesWithEntryType(command: TInstallPackagesWithEntryTypeCommand): Promise<void> {
         if (!this.supportedTypes.includes(command.type)) {
             throw new Error(`Cannot process installation command for unsupported type: ${command.type}`);
         }

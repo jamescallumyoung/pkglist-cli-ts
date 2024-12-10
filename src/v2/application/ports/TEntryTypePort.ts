@@ -2,5 +2,5 @@ import type {TInstallPackagesWithEntryTypeCommand} from "../commands/TInstallPac
 
 export type TEntryTypePort = {
     /** @throws */
-    installPackage: (p: TInstallPackagesWithEntryTypeCommand) => Promise<void>;
+    installPackagesWithEntryType: (p: TInstallPackagesWithEntryTypeCommand) => Promise<void>;
 };
