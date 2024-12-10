@@ -2,8 +2,7 @@ export const EntryTypes = [
     "apt",
     "apt-repo",
     "echo",
-    "echo2",
-    "echo3",
+    "snap",
 ] as const;
 
 export type TEntryType = (typeof EntryTypes)[number];

@@ -6,8 +6,7 @@ export const getNextEntryType = (lastEntryType: TEntryType | undefined) => {
         "apt-repo",
         "apt",
         "echo",
-        "echo2",
-        "echo3",
+        "snap",
     ] as const;
 
     if (lastEntryType == undefined) {
