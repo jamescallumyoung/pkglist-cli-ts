@@ -4,7 +4,7 @@ import type {TEntryTypePort} from "&/application/ports/TEntryTypePort.js";
 import {EntryTypeAdaptor} from "&/infrastructure/adaptors/EntryTypeAdaptor.js";
 import {installationService} from "&/application/installationService.js";
 
-const port: TEntryTypePort = new EntryTypeAdaptor([ 'echo', 'apt', 'apt-repo', 'snap' ]);
+const port: TEntryTypePort = new EntryTypeAdaptor([ 'echo', 'apt', 'apt-repo', 'snap', 'snap-classic' ]);
 
 const service = installationService(port);
 
@@ -44,6 +44,14 @@ await service({
         {
             type: 'snap',
             package: 'pop',
+        },
+        {
+            type: 'snap-classic',
+            package: 'crackle-classic',
+        },
+        {
+            type: 'snap-classic',
+            package: 'pop-classic',
         },
     ],
 });

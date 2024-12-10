@@ -5,8 +5,9 @@ export const getNextEntryType = (lastEntryType: TEntryType | undefined) => {
     const entryTypesInOrder: TEntryType[] = [
         "apt-repo",
         "apt",
-        "echo",
         "snap",
+        "snap-classic",
+        "echo",
     ] as const;
 
     if (lastEntryType == undefined) {

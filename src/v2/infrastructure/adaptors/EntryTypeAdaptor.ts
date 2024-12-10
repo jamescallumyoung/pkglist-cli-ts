@@ -28,6 +28,9 @@ export class EntryTypeAdaptor implements TEntryTypePort {
             case 'snap':
                 await SnapHandler.installSnapPackages(command);
                 break;
+            case 'snap-classic':
+                await SnapHandler.installSnapClassicPackages(command);
+                break;
             default:
                 throw new Error(`Internal Error: Handler not found for type: ${command.type}`);
         }

@@ -13,7 +13,22 @@ export class SnapHandler {
         }
     }
 
+    static async installSnapClassicPackages(command: TInstallPackagesWithEntryTypeCommand): Promise<void> {
+        const commandString = SnapHandler.makeSnapClassicInstallCommand(command.packages);
+
+        if (command.config.dryRun) {
+            console.log(`[snap-classic handler] ${commandString}`);
+        }
+        else {
+            console.log(`<<< not a dry run --- ${commandString} >>>`);
+        }
+    }
+
     private static makeSnapInstallCommand(packages: string[]): string {
         return installFns['snap'].replace(PLACEHOLDER, packages.join(" "));
+    }
+
+    private static makeSnapClassicInstallCommand(packages: string[]): string {
+        return installFns['snap-classic'].replace(PLACEHOLDER, packages.join(" "));
     }
 }

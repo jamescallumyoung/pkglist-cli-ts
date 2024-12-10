@@ -3,6 +3,7 @@ export const EntryTypes = [
     "apt-repo",
     "echo",
     "snap",
+    "snap-classic",
 ] as const;
 
 export type TEntryType = (typeof EntryTypes)[number];
