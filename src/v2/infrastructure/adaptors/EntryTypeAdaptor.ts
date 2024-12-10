@@ -1,9 +1,10 @@
 import type {TEntryType} from "&/application/TEntryType.js";
 import type {TInstallPackagesWithEntryTypeCommand} from "&/application/commands/TInstallPackagesWithEntryTypeCommand.js";
 import type {TEntryTypePort} from "&/application/ports/TEntryTypePort.js";
-import {AptHandler} from "&/infrastructure/handlers/AptHandler.js";
-import {SnapHandler} from "&/infrastructure/handlers/SnapHandler.js";
+import {AptHandler} from "../handlers/AptHandler.js";
 import {EchoHandler} from "../handlers/EchoHandler.js";
+import {FlatpakHandler} from "../handlers/FlatpakHandler.js";
+import {SnapHandler} from "../handlers/SnapHandler.js";
 
 export class EntryTypeAdaptor implements TEntryTypePort {
     constructor(
@@ -30,6 +31,9 @@ export class EntryTypeAdaptor implements TEntryTypePort {
                 break;
             case 'snap-classic':
                 await SnapHandler.installSnapClassicPackages(command);
+                break;
+            case 'flatpak':
+                await FlatpakHandler.installFlatpakPackages(command);
                 break;
             default:
                 throw new Error(`Internal Error: Handler not found for type: ${command.type}`);

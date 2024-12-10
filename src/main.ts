@@ -4,13 +4,13 @@ import type {TEntryTypePort} from "&/application/ports/TEntryTypePort.js";
 import {EntryTypeAdaptor} from "&/infrastructure/adaptors/EntryTypeAdaptor.js";
 import {installationService} from "&/application/installationService.js";
 
-const port: TEntryTypePort = new EntryTypeAdaptor([ 'echo', 'apt', 'apt-repo', 'snap', 'snap-classic' ]);
+const port: TEntryTypePort = new EntryTypeAdaptor([ 'echo', 'apt', 'apt-repo', 'snap', 'snap-classic', 'flatpak' ]);
 
 const service = installationService(port);
 
 await service({
     config: {
-        dryRun: false,
+        dryRun: true,
     },
     entries: [
         {
@@ -52,6 +52,14 @@ await service({
         {
             type: 'snap-classic',
             package: 'pop-classic',
+        },
+        {
+            type: 'flatpak',
+            package: 'https://flathub.org/repo/appstream/fi.skyjake.Lagrange.flatpakref',
+        },
+        {
+            type: 'flatpak',
+            package: 'https://flathub.org/repo/appstream/io.github.janbar.noson.flatpakref',
         },
     ],
 });

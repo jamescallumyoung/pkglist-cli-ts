@@ -7,6 +7,7 @@ export const getNextEntryType = (lastEntryType: TEntryType | undefined) => {
         "apt",
         "snap",
         "snap-classic",
+        "flatpak",
         "echo",
     ] as const;
 

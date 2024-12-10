@@ -2,6 +2,7 @@ export const EntryTypes = [
     "apt",
     "apt-repo",
     "echo",
+    "flatpak",
     "snap",
     "snap-classic",
 ] as const;
