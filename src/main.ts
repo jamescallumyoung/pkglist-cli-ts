@@ -10,4 +10,11 @@ const cliSvcFn = __yargsExecCommandHandler(
     ),
 );
 
+console.log("PARSING JSON");
 await cliSvcFn({ dry: true, file: "/Users/jamesyoung/repos/pkglist-cli-ts/content.pkglist.json" });
+
+console.log("PARSING JSON5");
+await cliSvcFn({ dry: true, file: "/Users/jamesyoung/repos/pkglist-cli-ts/content.pkglist.json5" });
+
+console.log("PARSING YAML");
+await cliSvcFn({ dry: true, file: "/Users/jamesyoung/repos/pkglist-cli-ts/content.pkglist.yaml" });
