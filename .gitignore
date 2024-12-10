@@ -9,3 +9,5 @@ build/*
 
 # example files
 *.pkglist.json
+*.pkglist.json5
+*.pkglist.yaml
