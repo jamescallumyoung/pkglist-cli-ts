@@ -6,7 +6,7 @@
     "pkglist": "./build/esm/main.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
     "clean": "pnpx rimraf ./build",
     "start": "node ./build/esm/main.js"
   },
@@ -19,6 +19,7 @@
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.12.4",
     "@types/yargs": "^17.0.32",
+    "tsc-alias": "^1.8.10",
     "typescript": "^5.4.3"
   },
   "files": [
