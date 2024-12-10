@@ -1,0 +1,33 @@
+import {groupBy} from "lodash-es";
+import type {TEntryTypePort} from "./ports/TEntryTypePort.js";
+import type {TPkglistEntry} from "../types.js";
+import {getNextEntryType} from "&/application/utils/getNextEntryType.js";
+
+export const installationService =
+    (entryTypePort: TEntryTypePort) =>
+    async (f: { entries: TPkglistEntry[] }) => {
+
+        // Group the entries together by their EntryType. Each group is processed together.
+        // The underlying handlers (AptHandler, SnapHandler, etc.) determine how to process the groups.
+        // (Some handlers can install all of a group's packages at once, whilst others must invoke their install command once per package.)
+        const entriesGroupedByEntryType = groupBy(f.entries, 'type');
+
+        // EntryTypes must be processed in a certain order as some depend on others (such as apt depending on apt-repo)
+        let currentEntryType = getNextEntryType(undefined);
+
+        while (currentEntryType !== undefined) {
+            if (entriesGroupedByEntryType[currentEntryType] !== undefined) {
+                console.debug(`[installationService] handling: "${currentEntryType}"`);
+
+                const entries = entriesGroupedByEntryType[currentEntryType];
+                const packages = entries.map(entry => entry.package);
+
+                await entryTypePort.installPackagesWithEntryType({
+                    type: currentEntryType,
+                    packages,
+                });
+            }
+
+            currentEntryType = getNextEntryType(currentEntryType);
+        }
+    }

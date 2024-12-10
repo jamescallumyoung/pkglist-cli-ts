@@ -15,6 +15,8 @@ export class EntryTypeAdaptor implements TEntryTypePort {
 
         switch (command.type) {
             case "echo":
+            case "echo2": // TODO remove
+            case "echo3":
                 EchoHandler.handleInstallCommand(command);
                 break;
             default:
