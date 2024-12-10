@@ -14,13 +14,15 @@ export class AptHandler {
     }
 
     static async installAptRepository(command: TInstallPackagesWithEntryTypeCommand): Promise<void> {
-        const commandString = AptHandler.makeAddAptRepositoryCommand(command.packages);
+        for (const pkg of command.packages) {
+            const commandString = AptHandler.makeAddAptRepositoryCommand(pkg);
 
-        if (command.config.dryRun) {
-            console.log(`[apt-repo handler] ${commandString}`);
-        }
-        else {
-            console.log(`<<< not a dry run --- ${commandString} >>>`);
+            if (command.config.dryRun) {
+                console.log(`[apt-repo handler] ${commandString}`);
+            }
+            else {
+                console.log(`<<< not a dry run --- ${commandString} >>>`);
+            }
         }
     }
 
@@ -28,7 +30,7 @@ export class AptHandler {
         return installFns['apt'].replace(PLACEHOLDER, packages.join(" "));
     }
 
-    private static makeAddAptRepositoryCommand(packages: string[]): string {
-        return installFns['apt-repo'].replace(PLACEHOLDER, packages.join(" "));
+    private static makeAddAptRepositoryCommand(pkg: string): string {
+        return installFns['apt-repo'].replace(PLACEHOLDER, pkg);
     }
 }
